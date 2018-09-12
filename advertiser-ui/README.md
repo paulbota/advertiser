@@ -18,6 +18,12 @@ Get all the dependencies
 
     $ yarn build
     
+## Run in production
+
+In order to run in production a web server is needed like nginx. The procedure is:
+- Run yarn build to create a build of the application
+- Copy the dist folder to the web server
+
 ## Run tests
 
     $ yarn test
