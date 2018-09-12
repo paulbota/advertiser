@@ -3,7 +3,7 @@ import { TargetAudience } from './TargetAudience';
 import { Insights } from './Insights';
 import { Creatives } from './Creatives';
 import styled from 'styled-components';
-import { DateAttribute, NamedAttribute } from '../common/Layout';
+import { DateAttribute, NamedAttribute } from '../common/layout';
 import PropTypes from 'prop-types';
 
 /**

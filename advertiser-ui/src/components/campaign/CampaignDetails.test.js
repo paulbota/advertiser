@@ -5,10 +5,11 @@ import {CampaignDetails} from './CampaignDetails';
 
 Enzyme.configure({adapter: new Adapter()});
 
-function setup(selectedCampaign, selectedPlatform) {
+function setup(selectedCampaign, selectedPlatform, changePlatform) {
     const props = {
         selectedCampaign,
-        selectedPlatform
+        selectedPlatform,
+        changePlatform
     };
 
     const enzymeWrapper = shallow(<CampaignDetails {...props} />);
@@ -21,7 +22,7 @@ function setup(selectedCampaign, selectedPlatform) {
 
 describe('CampaignDetails', () => {
     it('should render self and subcomponents', () => {
-        const {enzymeWrapper} = setup({platforms: {facebook: {}}}, 'facebook');
+        const {enzymeWrapper} = setup({platforms: {facebook: {}}}, 'facebook', jest.fn());
 
         expect(enzymeWrapper.find('WithStyles(Tab)').props().value).toBe('facebook');
         expect(enzymeWrapper.find({platform: {}}).exists()).toBe(true);

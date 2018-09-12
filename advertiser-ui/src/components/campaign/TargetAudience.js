@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChipsList, RangeAttribute, Section, Title } from '../common/Layout';
+import { ChipsList, RangeAttribute, Section, Title } from '../common/layout';
 import PropTypes from 'prop-types';
 
 /**

@@ -3,7 +3,7 @@ import Campaign from '../components/campaign/Campaign';
 import CampaignDetails from '../components/campaign/CampaignDetails';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
-import { invalidateError, openCampaignDetailView, requestCampaigns } from '../redux/action';
+import { changePlatform, invalidateError, openCampaignDetailView, requestCampaigns } from '../redux/action';
 import './Campaigns.css';
 import { bindActionCreators } from 'redux';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
     return {
         campaigns: state.campaign.campaigns,
         selectedCampaign: state.campaign.selectedCampaign,
+        selectedPlatform: state.campaign.selectedPlatform,
         errorMessage: state.campaign.errorMessage,
     };
 };
@@ -28,6 +29,7 @@ const bindDispatch = dispatch => ({
         openCampaignDetailView,
         requestCampaigns,
         invalidateError,
+        changePlatform,
     }, dispatch),
 });
 
@@ -42,7 +44,10 @@ export class Campaigns extends Component {
     }
 
     render() {
-        const {campaigns, selectedCampaign, errorMessage, actions: {openCampaignDetailView, invalidateError}} = this.props;
+        const {
+            campaigns, selectedCampaign, selectedPlatform, errorMessage,
+            actions: {openCampaignDetailView, invalidateError, changePlatform},
+        } = this.props;
 
         return (
             <div>
@@ -54,11 +59,16 @@ export class Campaigns extends Component {
                             </Grid>
                         ))}
                     </Grid>
-                    {!!selectedCampaign && <div className="campaign-details"><CampaignDetails/></div>}
+                    {!!selectedCampaign &&
+                    <div className="campaign-details"><CampaignDetails selectedCampaign={selectedCampaign}
+                                                                       selectedPlatform={selectedPlatform}
+                                                                       changePlatform={changePlatform}/></div>}
                 </div>
 
                 <Snackbar open={!!errorMessage} message={`${errorMessage}`} autoHideDuration={4000}
-                          onClose={() => {invalidateError();}}/>
+                          onClose={() => {
+                              invalidateError();
+                          }}/>
             </div>
         );
     }
@@ -79,7 +89,10 @@ Campaigns.propTypes = {
         invalidateError: PropTypes.func,
         /** Action to request campaigns */
         requestCampaigns: PropTypes.func,
-    })
+        /** Action to change platform */
+        changePlatform: PropTypes.func
+
+    }),
 };
 
 export default connect(mapStateToProps, bindDispatch)(Campaigns);

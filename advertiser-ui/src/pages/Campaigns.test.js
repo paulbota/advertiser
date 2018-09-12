@@ -1,16 +1,17 @@
 import React from 'react';
-import Enzyme, { mount, shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Campaigns } from './Campaigns';
 
 Enzyme.configure({adapter: new Adapter()});
 
-function setup(campaigns, selectedCampaign, errorMessage, actions) {
+function setup(campaigns, selectedCampaign, selectedPlatform, errorMessage, actions) {
     const props = {
         campaigns,
         selectedCampaign,
+        selectedPlatform,
         errorMessage,
-        actions
+        actions,
     };
 
     const enzymeWrapper = shallow(<Campaigns {...props} />);
@@ -26,12 +27,14 @@ describe('Campaigns', () => {
         const {enzymeWrapper} = setup(
             [{}],
             {},
+            '',
             null,
             {
                 openCampaignDetailView: jest.fn(),
                 invalidateError: jest.fn(),
                 requestCampaigns: jest.fn(),
-            }
+                changePlatform: jest.fn(),
+            },
         );
         expect(enzymeWrapper.find('Campaign').exists()).toBe(true);
     });
@@ -40,12 +43,14 @@ describe('Campaigns', () => {
         const {enzymeWrapper} = setup(
             undefined,
             {},
+            '',
             null,
             {
                 openCampaignDetailView: jest.fn(),
                 invalidateError: jest.fn(),
                 requestCampaigns: jest.fn(),
-            }
+                changePlatform: jest.fn(),
+            },
         );
         expect(enzymeWrapper.find('Campaign').exists()).toBe(false);
     });
@@ -54,12 +59,14 @@ describe('Campaigns', () => {
         const {enzymeWrapper} = setup(
             [{}],
             {},
+            '',
             null,
             {
                 openCampaignDetailView: jest.fn(),
                 invalidateError: jest.fn(),
                 requestCampaigns: jest.fn(),
-            }
+                changePlatform: jest.fn(),
+            },
         );
         expect(enzymeWrapper.find('.campaign-details').exists()).toBe(true);
     });
@@ -69,11 +76,13 @@ describe('Campaigns', () => {
             [{}],
             undefined,
             null,
+            '',
             {
                 openCampaignDetailView: jest.fn(),
                 invalidateError: jest.fn(),
                 requestCampaigns: jest.fn(),
-            }
+                changePlatform: jest.fn(),
+            },
         );
         expect(enzymeWrapper.find('.campaign-details').exists()).toBe(false);
     });

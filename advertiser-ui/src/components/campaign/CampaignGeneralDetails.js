@@ -1,5 +1,5 @@
 import React from 'react';
-import { NamedAttribute, Title } from '../common/Layout';
+import { NamedAttribute, Title } from '../common/layout';
 import PropTypes from 'prop-types';
 
 /**

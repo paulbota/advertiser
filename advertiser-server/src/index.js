@@ -1,29 +1,20 @@
-import express from 'express';
-import { importFile } from './import';
+import { importFile } from './middleware/import';
 import { Campaigns } from './connector/mongo';
-import { getAllCampaigns } from './campaigns';
-import cors from 'cors';
-import { importImage } from './import';
+import app from './controllers/campaigns';
+import env from '../env';
 
-const app = express();
-const port = 8000;
-const fileName = 'data/data.json';
+const {port, fileName} = env;
 
-app.use(cors());
-
-app.get('/campaigns', async (req, res) => res.send(await getAllCampaigns()));
-
-app.get('/image', async (req, res) => {
-    const imageName = req.query.imageName;
-    res.type('image/jpeg');
-    res.send(await importImage(`images/${imageName}`));
-});
-
+/**
+ * Start the server
+ */
 app.listen(port, () =>
     console.log(`Server started n port ${port}`),
 );
 
-Campaigns.remove({}).exec();
+/**
+ * Drop old database and import the new one
+ */
+Campaigns.deleteMany({}).exec();
 importFile(fileName)
-    .then((data) => Campaigns.insertMany(data.map(it => new Campaigns(it))))
-    .then(console.log);
+    .then((data) => Campaigns.insertMany(data.map(it => new Campaigns(it))));

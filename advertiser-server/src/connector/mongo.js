@@ -1,10 +1,14 @@
 import Mongoose from 'mongoose';
+import env from '../../env';
 
-const mongoConnString = 'mongodb://localhost:27017/advertiser';
+const {mongoConnString} = env;
 
 Mongoose.Promise = Promise;
 Mongoose.connect(mongoConnString);
 
+/**
+ * Create schema for campaigns
+ */
 const CampaignsSchema = Mongoose.Schema({
     id: { type: Number, index: true, unique: true },
     name: String,
