@@ -8,3 +8,12 @@ export const importFile = async (fileName) => {
         });
     });
 };
+
+export const importImage = async (imageName) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(imageName, (err, data) => {
+            if (err) reject(err);
+            else resolve(data);
+        });
+    });
+};

@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import './App.css';
-import Home from './pages/home/Home';
+import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Campaigns from './pages/campaigns/Campaigns';
+import Campaigns from './pages/Campaigns';
 
+/**
+ * Root component with routing
+ */
 class App extends Component {
     render() {
         return (
             <BrowserRouter basename='/'>
                 <main>
-                    <Route exact path="/" component={Home}/>
-                    <Route exact path="/campaigns" component={Campaigns}/>
+                    <Route exact path="/" component={Campaigns}/>
                 </main>
             </BrowserRouter>
         );

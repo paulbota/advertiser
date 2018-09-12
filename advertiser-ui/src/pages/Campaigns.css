@@ -1,0 +1,11 @@
+.grid {
+    margin-top: 10px;
+}
+
+.grid-item + .grid-item {
+    margin-left: 10px;
+}
+
+.campaign-details {
+    margin: 10px;
+}
